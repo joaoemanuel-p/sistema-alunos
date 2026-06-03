@@ -1,16 +1,31 @@
-# React + Vite
+# Sistema de Cadastro de Alunos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto desenvolvido em React para a disciplina de Frontend.
 
-Currently, two official plugins are available:
+## Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* React
+* Vite
+* Docker
+* Git e GitHub
 
-## React Compiler
+## Como executar o projeto
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Subir a aplicação
 
-## Expanding the ESLint configuration
+```bash
+docker compose up -d --build
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Acessar no navegador
+
+```txt
+http://localhost:5173
+```
+
+## Integrantes
+
+* Nome 1
+* Nome 2
+* Nome 3
+* Nome 4
