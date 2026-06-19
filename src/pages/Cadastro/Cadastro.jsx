@@ -7,8 +7,31 @@ function Cadastro() {
   const [email, setEmail] = useState("");
   const [curso, setCurso] = useState("");
 
+  const [erros, setErros] = useState({});
+
   function handleSubmit(event) {
     event.preventDefault();
+
+    const novosErros = {};
+
+    if (!nome.trim()) {
+      novosErros.nome = "Informe o nome.";
+    }
+
+    if (!email.trim()) {
+      novosErros.email = "Informe o e-mail.";
+    } else if (!email.includes("@")) {
+      novosErros.email = "Informe um e-mail válido.";
+    }
+
+    if (!curso.trim()) {
+      novosErros.curso = "Informe o curso.";
+    }
+
+    if (Object.keys(novosErros).length > 0) {
+      setErros(novosErros);
+      return;
+    }
 
     console.log("FORMULÁRIO ENVIADO");
 
@@ -21,6 +44,7 @@ function Cadastro() {
     setNome("");
     setEmail("");
     setCurso("");
+    setErros({});
   }
 
   return (
@@ -28,39 +52,43 @@ function Cadastro() {
       <h1>Cadastro de Alunos</h1>
 
       <form onSubmit={handleSubmit}>
+        {/* NOME */}
         <div>
           <label htmlFor="nome">Nome</label>
           <input
             id="nome"
             type="text"
             value={nome}
-            onChange={(event) => setNome(event.target.value)}
+            onChange={(e) => setNome(e.target.value)}
           />
+          {erros.nome && <p className="erro">{erros.nome}</p>}
         </div>
 
+        {/* EMAIL */}
         <div>
           <label htmlFor="email">E-mail</label>
           <input
             id="email"
             type="email"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
+          {erros.email && <p className="erro">{erros.email}</p>}
         </div>
 
+        {/* CURSO */}
         <div>
           <label htmlFor="curso">Curso</label>
           <input
             id="curso"
             type="text"
             value={curso}
-            onChange={(event) => setCurso(event.target.value)}
+            onChange={(e) => setCurso(e.target.value)}
           />
+          {erros.curso && <p className="erro">{erros.curso}</p>}
         </div>
 
-        <button type="submit">
-          Cadastrar Aluno
-        </button>
+        <button type="submit">Cadastrar Aluno</button>
       </form>
     </Layout>
   );
