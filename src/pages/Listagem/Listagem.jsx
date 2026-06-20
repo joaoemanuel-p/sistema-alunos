@@ -9,9 +9,25 @@ function Listagem() {
     <Layout>
       <h1>Listagem de Alunos</h1>
 
-      <pre>
-        {JSON.stringify(alunos, null, 2)}
-      </pre>
+      {alunos.length === 0 ? (
+        <p>Nenhum aluno cadastrado.</p>
+      ) : (
+        <div className="alunos-lista">
+          {alunos.map((aluno) => (
+            <div className="aluno-card" key={aluno.id}>
+              <h2>{aluno.nome}</h2>
+
+              <p>
+                <strong>E-mail:</strong> {aluno.email}
+              </p>
+
+              <p>
+                <strong>Curso:</strong> {aluno.curso}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
     </Layout>
   );
 }
