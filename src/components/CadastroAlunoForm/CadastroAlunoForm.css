@@ -22,12 +22,17 @@
   border-radius: 6px;
   font-size: 0.95rem;
   background: #fff;
+  transition: border-color 0.2s;
 }
 
 .campo input:focus,
 .campo select:focus {
   outline: none;
   border-color: var(--primary);
+}
+
+.campo-invalido {
+  border-color: #d33 !important;
 }
 
 .erro {
@@ -50,4 +55,44 @@
 
 .form-aluno button[type="submit"]:hover {
   opacity: 0.9;
+}
+
+.form-sucesso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  padding: 30px 10px;
+  text-align: center;
+}
+
+.form-sucesso-icone {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #2ecc71;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.5rem;
+
+  animation: popIn 0.3s ease;
+}
+
+.form-sucesso p {
+  font-weight: 500;
+  color: var(--text);
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
 }

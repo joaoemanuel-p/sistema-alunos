@@ -3,7 +3,7 @@ import { useAluno } from "../../context/AlunoContext";
 import "./CadastroAlunoForm.css";
 
 function CadastroAlunoForm({ onSucesso }) {
-  const { cursos, adicionarAluno } = useAluno();
+  const { cursos, alunos, adicionarAluno } = useAluno();
 
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -11,22 +11,34 @@ function CadastroAlunoForm({ onSucesso }) {
   const [curso, setCurso] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [erros, setErros] = useState({});
+  const [sucesso, setSucesso] = useState(false);
+
+  function validarEmail(valor) {
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regexEmail.test(valor);
+  }
 
   function validar() {
     const novosErros = {};
 
     if (!nome.trim()) {
       novosErros.nome = "Informe o nome.";
+    } else if (nome.trim().length < 3) {
+      novosErros.nome = "O nome deve ter pelo menos 3 caracteres.";
     }
 
     if (!email.trim()) {
       novosErros.email = "Informe o e-mail.";
-    } else if (!email.includes("@")) {
-      novosErros.email = "Informe um e-mail válido.";
+    } else if (!validarEmail(email.trim())) {
+      novosErros.email = "Informe um e-mail válido (ex: nome@dominio.com).";
     }
 
     if (!matricula.trim()) {
       novosErros.matricula = "Informe a matrícula.";
+    } else if (
+      alunos.some((aluno) => aluno.matricula === matricula.trim())
+    ) {
+      novosErros.matricula = "Já existe um aluno com essa matrícula.";
     }
 
     if (!curso) {
@@ -35,6 +47,14 @@ function CadastroAlunoForm({ onSucesso }) {
 
     if (!dataNascimento) {
       novosErros.dataNascimento = "Informe a data de nascimento.";
+    } else {
+      const dataSelecionada = new Date(dataNascimento);
+      const hoje = new Date();
+
+      if (dataSelecionada > hoje) {
+        novosErros.dataNascimento =
+          "A data de nascimento não pode estar no futuro.";
+      }
     }
 
     return novosErros;
@@ -60,18 +80,32 @@ function CadastroAlunoForm({ onSucesso }) {
     }
 
     adicionarAluno({
-      nome,
-      email,
-      matricula,
+      nome: nome.trim(),
+      email: email.trim(),
+      matricula: matricula.trim(),
       curso,
       dataNascimento,
     });
 
+    setSucesso(true);
     limparFormulario();
 
-    if (onSucesso) {
-      onSucesso();
-    }
+    setTimeout(() => {
+      setSucesso(false);
+
+      if (onSucesso) {
+        onSucesso();
+      }
+    }, 1200);
+  }
+
+  if (sucesso) {
+    return (
+      <div className="form-sucesso">
+        <span className="form-sucesso-icone">✓</span>
+        <p>Aluno cadastrado com sucesso!</p>
+      </div>
+    );
   }
 
   return (
@@ -83,6 +117,7 @@ function CadastroAlunoForm({ onSucesso }) {
           type="text"
           value={nome}
           onChange={(event) => setNome(event.target.value)}
+          className={erros.nome ? "campo-invalido" : ""}
         />
         {erros.nome && <p className="erro">{erros.nome}</p>}
       </div>
@@ -94,6 +129,7 @@ function CadastroAlunoForm({ onSucesso }) {
           type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
+          className={erros.email ? "campo-invalido" : ""}
         />
         {erros.email && <p className="erro">{erros.email}</p>}
       </div>
@@ -105,6 +141,7 @@ function CadastroAlunoForm({ onSucesso }) {
           type="text"
           value={matricula}
           onChange={(event) => setMatricula(event.target.value)}
+          className={erros.matricula ? "campo-invalido" : ""}
         />
         {erros.matricula && <p className="erro">{erros.matricula}</p>}
       </div>
@@ -115,6 +152,7 @@ function CadastroAlunoForm({ onSucesso }) {
           id="curso"
           value={curso}
           onChange={(event) => setCurso(event.target.value)}
+          className={erros.curso ? "campo-invalido" : ""}
         >
           <option value="">Selecione um curso</option>
           {cursos.map((c) => (
@@ -133,6 +171,7 @@ function CadastroAlunoForm({ onSucesso }) {
           type="date"
           value={dataNascimento}
           onChange={(event) => setDataNascimento(event.target.value)}
+          className={erros.dataNascimento ? "campo-invalido" : ""}
         />
         {erros.dataNascimento && (
           <p className="erro">{erros.dataNascimento}</p>
