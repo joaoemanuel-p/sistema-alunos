@@ -1,31 +1,113 @@
-# Sistema de Cadastro de Alunos
+# 📘 Sistema de Cadastro de Alunos
 
-Projeto desenvolvido em React para a disciplina de Frontend.
+## 🎯 Objetivo
 
-## Tecnologias Utilizadas
+Aplicação desenvolvida para gerenciamento de alunos, permitindo cadastro, listagem e consumo de API externa, com foco em organização de estado e interface responsiva.
 
-* React
-* Vite
-* Docker
-* Git e GitHub
+---
 
-## Como executar o projeto
+## 🛠 Tecnologias utilizadas
 
-### Subir a aplicação
+- React
+- React Router DOM
+- Context API
+- Fetch API
+- CSS
+- Docker
+- Git
+- GitHub
+
+---
+
+## ⚙️ Funcionalidades
+
+- Navegação entre páginas
+- Cadastro de alunos
+- Validação de formulário
+- Estado global com Context API
+- Listagem dinâmica de alunos
+- Consumo de API REST externa
+- Interface responsiva
+
+---
+
+## 📁 Estrutura do projeto
+
+```txt
+src
+├── components
+├── context
+├── pages
+├── services
+├── styles
+├── App.jsx
+└── main.jsx
+```
+
+---
+
+## 🐳 Como executar com Docker
+
+### 🔨 Build da aplicação
 
 ```bash
 docker compose up -d --build
 ```
 
-### Acessar no navegador
+---
+
+### 📊 Visualizar logs
+
+```bash
+docker compose logs -f
+```
+
+---
+
+### 🌐 Acessar aplicação
 
 ```txt
 http://localhost:5173
 ```
 
-## Integrantes
+---
 
-* Nome 1
-* Nome 2
-* Nome 3
-* Nome 4
+### 🛑 Parar aplicação
+
+```bash
+docker compose down
+```
+
+---
+
+## 🚀 Como executar localmente (sem Docker)
+
+```bash
+npm install
+npm run dev
+```
+
+---
+
+## 👥 Integrantes
+
+- Seu nome aqui
+
+---
+
+## 📌 Observações
+
+- O projeto utiliza Context API para gerenciamento de estado global  
+- O consumo de API externa é feito via Fetch API  
+- O layout foi construído com foco em responsividade (mobile, tablet e desktop)  
+- Estilização centralizada em CSS global  
+
+---
+
+## ✅ Status do projeto
+
+- ✔ Funcional  
+- ✔ Responsivo  
+- ✔ Estruturado  
+- ✔ Pronto para entrega  
+```
