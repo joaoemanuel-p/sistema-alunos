@@ -3,7 +3,12 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  transition: box-shadow var(--transition);
+}
+
+.accordion-item:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 .accordion-cabecalho {
@@ -17,23 +22,30 @@
   border: none;
   cursor: pointer;
 
-  padding: 16px 20px;
+  padding: 18px 22px;
   text-align: left;
+
+  transition: background var(--transition);
+}
+
+.accordion-cabecalho:hover {
+  background: rgba(74, 144, 226, 0.04);
 }
 
 .accordion-titulo h2 {
   font-size: 1rem;
   margin: 0 0 4px 0;
+  color: var(--text);
 }
 
 .accordion-subtitulo {
   font-size: 0.8rem;
-  opacity: 0.7;
+  color: var(--text-muted);
 }
 
 .accordion-seta {
-  font-size: 1.2rem;
-  transition: transform 0.2s ease;
+  font-size: 1.3rem;
+  transition: transform 0.25s ease;
   color: var(--primary);
 }
 
@@ -42,45 +54,76 @@
 }
 
 .accordion-corpo {
-  padding: 0 20px 16px 20px;
+  padding: 4px 22px 20px 22px;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
+
+  animation: expandir 0.25s ease;
 }
 
 .accordion-descricao {
-  margin: 14px 0 12px 0;
+  margin: 16px 0 14px 0;
   font-size: 0.9rem;
+  color: var(--text);
   opacity: 0.9;
 }
 
 .accordion-areas {
   font-size: 0.9rem;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.accordion-areas strong {
+  color: var(--text);
 }
 
 .accordion-areas ul {
-  margin: 6px 0 0 0;
-  padding-left: 18px;
+  margin: 8px 0 0 0;
+  padding-left: 0;
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .accordion-areas li {
-  margin-bottom: 3px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  padding-left: 14px;
+  position: relative;
+}
+
+.accordion-areas li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
 }
 
 .accordion-curiosidade {
   font-size: 0.85rem;
-  opacity: 0.85;
-  margin-bottom: 14px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.accordion-curiosidade strong {
+  color: var(--text);
+  font-style: normal;
 }
 
 .accordion-divisor {
   border: none;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
-  margin: 12px 0;
+  margin: 14px 0;
 }
 
 .accordion-subtitulo-alunos {
-  font-size: 0.9rem;
-  margin-bottom: 8px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
 }
 
 .accordion-lista-alunos {
@@ -93,4 +136,21 @@
   gap: 8px;
 
   font-size: 0.9rem;
+}
+
+.accordion-lista-alunos li {
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.025);
+  border-radius: 6px;
+}
+
+@keyframes expandir {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
