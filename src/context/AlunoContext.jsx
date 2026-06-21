@@ -1,16 +1,16 @@
 import { createContext, useContext, useState } from "react";
+import { cursos } from "../data/cursos";
 
 const AlunoContext = createContext();
 
 export function AlunoProvider({ children }) {
   const [alunos, setAlunos] = useState([]);
+  const [modalAberto, setModalAberto] = useState(false);
 
-  function adicionarAluno(nome, email, curso) {
+  function adicionarAluno(dadosAluno) {
     const novoAluno = {
       id: Date.now(),
-      nome,
-      email,
-      curso,
+      ...dadosAluno,
     };
 
     setAlunos((alunosAnteriores) => [
@@ -19,11 +19,28 @@ export function AlunoProvider({ children }) {
     ]);
   }
 
+  function abrirModal() {
+    setModalAberto(true);
+  }
+
+  function fecharModal() {
+    setModalAberto(false);
+  }
+
+  function alunosPorCurso(cursoId) {
+    return alunos.filter((aluno) => aluno.curso === cursoId);
+  }
+
   return (
     <AlunoContext.Provider
       value={{
         alunos,
+        cursos,
         adicionarAluno,
+        modalAberto,
+        abrirModal,
+        fecharModal,
+        alunosPorCurso,
       }}
     >
       {children}

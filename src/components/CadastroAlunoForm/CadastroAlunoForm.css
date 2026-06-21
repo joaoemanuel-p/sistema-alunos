@@ -1,0 +1,53 @@
+.form-aluno {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.campo label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.campo input,
+.campo select {
+  padding: 8px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.campo input:focus,
+.campo select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.erro {
+  color: #d33;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.form-aluno button[type="submit"] {
+  margin-top: 8px;
+  padding: 10px 16px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.form-aluno button[type="submit"]:hover {
+  opacity: 0.9;
+}

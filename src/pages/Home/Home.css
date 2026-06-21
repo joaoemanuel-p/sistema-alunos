@@ -1,4 +1,102 @@
-.home-container {
+.home-hero {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.home-hero p {
+  margin-top: 8px;
+  opacity: 0.8;
+}
+
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.home-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  text-decoration: none;
+  color: inherit;
+
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px;
+
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  transition: 0.2s;
+}
+
+.home-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.home-card h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.home-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.home-card-link {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.home-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+  text-align: center;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 20px;
+}
+
+.home-footer-bloco {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-footer-bloco h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.home-footer-lista-horizontal {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 20px;
+
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.home-footer-lista-horizontal li {
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .home-footer-lista-horizontal {
+    gap: 8px 14px;
+  }
 }
