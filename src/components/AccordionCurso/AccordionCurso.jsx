@@ -47,7 +47,7 @@ function AccordionCurso({ curso, alunosDoCurso, aberto, onToggle }) {
             <ul className="accordion-lista-alunos">
               {alunosDoCurso.map((aluno) => (
                 <li key={aluno.id}>
-                  <strong>{aluno.nome}</strong> — {aluno.email}
+                  <strong>{aluno.nome}</strong> — Matrícula: {aluno.matricula}
                 </li>
               ))}
             </ul>
