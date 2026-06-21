@@ -1,0 +1,123 @@
+.dashboard-resumo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.dashboard-stat-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  text-align: center;
+}
+
+.dashboard-stat-numero {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.dashboard-stat-label {
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+.dashboard-destaques {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.dashboard-destaque-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  text-align: center;
+}
+
+.dashboard-destaque-card h3 {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+
+.dashboard-destaque-card p {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.dashboard-destaque-card span {
+  font-size: 0.85rem;
+  color: var(--primary);
+}
+
+.dashboard-grafico {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.dashboard-grafico h2 {
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+}
+
+.dashboard-barras {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dashboard-barra-linha {
+  display: grid;
+  grid-template-columns: 180px 1fr 40px;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashboard-barra-label {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dashboard-barra-trilha {
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  height: 14px;
+  overflow: hidden;
+}
+
+.dashboard-barra-preenchimento {
+  background: var(--primary);
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.dashboard-barra-valor {
+  font-size: 0.85rem;
+  text-align: right;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .dashboard-barra-linha {
+    grid-template-columns: 100px 1fr 30px;
+  }
+
+  .dashboard-barra-label {
+    font-size: 0.75rem;
+  }
+}

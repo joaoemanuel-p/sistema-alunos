@@ -1,0 +1,96 @@
+.accordion-item {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.accordion-cabecalho {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  padding: 16px 20px;
+  text-align: left;
+}
+
+.accordion-titulo h2 {
+  font-size: 1rem;
+  margin: 0 0 4px 0;
+}
+
+.accordion-subtitulo {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.accordion-seta {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+  color: var(--primary);
+}
+
+.accordion-seta.aberta {
+  transform: rotate(180deg);
+}
+
+.accordion-corpo {
+  padding: 0 20px 16px 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.accordion-descricao {
+  margin: 14px 0 12px 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.accordion-areas {
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.accordion-areas ul {
+  margin: 6px 0 0 0;
+  padding-left: 18px;
+}
+
+.accordion-areas li {
+  margin-bottom: 3px;
+}
+
+.accordion-curiosidade {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-bottom: 14px;
+}
+
+.accordion-divisor {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin: 12px 0;
+}
+
+.accordion-subtitulo-alunos {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.accordion-lista-alunos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  font-size: 0.9rem;
+}
