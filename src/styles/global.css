@@ -1,0 +1,88 @@
+/* LISTAGEM ESTILO DASHBOARD PREMIUM */
+.alunos-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* CARD PREMIUM MODERNO */
+.aluno-card {
+  background: var(--card);
+  border-radius: var(--radius);
+
+  /* sombra mais suave e elegante */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+
+  padding: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  position: relative;
+  overflow: hidden;
+
+  transition: all 0.25s ease;
+}
+
+/* HOVER MAIS PROFISSIONAL */
+.aluno-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* BARRA LATERAL MODERNA */
+.aluno-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 5px;
+  height: 100%;
+
+  background: linear-gradient(
+    to bottom,
+    var(--primary),
+    rgba(74, 144, 226, 0.4)
+  );
+
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+/* LINHA INFERIOR (EFEITO LIMPO E MODERNO) */
+.aluno-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  right: 10px;
+
+  height: 1px;
+
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 0, 0, 0.08),
+    transparent
+  );
+}
+
+/* TEXTO */
+.aluno-card h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.aluno-card p {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  margin: 0;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .alunos-lista {
+    grid-template-columns: 1fr;
+  }
+}
