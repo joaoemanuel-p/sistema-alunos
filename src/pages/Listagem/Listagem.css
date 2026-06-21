@@ -1,24 +1,40 @@
-h1 {
-  margin-bottom: 20px;
-}
-
+/* LISTA EM GRID RESPONSIVO */
 .alunos-lista {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 15px;
 }
 
+/* CARD DE ALUNO */
 .aluno-card {
-  border: 1px solid #cccccc;
-  border-radius: 8px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   padding: 15px;
+  transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aluno-card:hover {
+  transform: translateY(-3px);
 }
 
 .aluno-card h2 {
-  margin-bottom: 10px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
 }
 
 .aluno-card p {
-  margin-bottom: 5px;
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .alunos-lista {
+    grid-template-columns: 1fr;
+  }
 }
