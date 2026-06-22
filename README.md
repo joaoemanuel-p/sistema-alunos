@@ -91,7 +91,9 @@ npm run dev
 
 ## 👥 Integrantes
 
-- Seu nome aqui
+- João Emanuel Pinheiro Leite
+- Gabriel Santana Oliveira Silva
+- Iago de Oliveira Rodrigues
 
 ---
 
