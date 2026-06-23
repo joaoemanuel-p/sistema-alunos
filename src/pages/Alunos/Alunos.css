@@ -6,3 +6,36 @@
   margin-bottom: 16px;
   font-size: 1.1rem;
 }
+
+.aluno-card-acoes {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.aluno-card-acoes button {
+  flex: 1;
+  padding: 8px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.aluno-card-acoes button:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.botao-excluir {
+  border: 1px solid var(--primary-dark) !important;
+  background: var(--primary) !important;
+  color: #fff !important;
+}
+
+.botao-excluir:hover {
+  background: var(--primary-dark) !important;
+}

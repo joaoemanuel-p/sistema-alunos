@@ -2,14 +2,17 @@ import { useState } from "react";
 import { useAluno } from "../../context/AlunoContext";
 import "./CadastroAlunoForm.css";
 
-function CadastroAlunoForm({ onSucesso }) {
-  const { cursos, alunos, adicionarAluno } = useAluno();
+function CadastroAlunoForm({ aluno, onSucesso }) {
+  const { cursos, alunos, adicionarAluno, editarAluno } = useAluno();
+  const editando = Boolean(aluno);
 
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [matricula, setMatricula] = useState("");
-  const [curso, setCurso] = useState("");
-  const [dataNascimento, setDataNascimento] = useState("");
+  const [nome, setNome] = useState(aluno?.nome || "");
+  const [email, setEmail] = useState(aluno?.email || "");
+  const [matricula, setMatricula] = useState(aluno?.matricula || "");
+  const [curso, setCurso] = useState(aluno?.curso || "");
+  const [dataNascimento, setDataNascimento] = useState(
+    aluno?.dataNascimento || ""
+  );
   const [erros, setErros] = useState({});
   const [sucesso, setSucesso] = useState(false);
 
@@ -35,10 +38,13 @@ function CadastroAlunoForm({ onSucesso }) {
 
     if (!matricula.trim()) {
       novosErros.matricula = "Informe a matrícula.";
-    } else if (
-      alunos.some((aluno) => aluno.matricula === matricula.trim())
-    ) {
-      novosErros.matricula = "Já existe um aluno com essa matrícula.";
+    } else {
+      const duplicada = alunos.some(
+        (a) => a.matricula === matricula.trim() && a.id !== aluno?.id
+      );
+      if (duplicada) {
+        novosErros.matricula = "Já existe um aluno com essa matrícula.";
+      }
     }
 
     if (!curso) {
@@ -79,16 +85,22 @@ function CadastroAlunoForm({ onSucesso }) {
       return;
     }
 
-    adicionarAluno({
+    const dados = {
       nome: nome.trim(),
       email: email.trim(),
       matricula: matricula.trim(),
       curso,
       dataNascimento,
-    });
+    };
+
+    if (editando) {
+      editarAluno(aluno.id, dados);
+    } else {
+      adicionarAluno(dados);
+      limparFormulario();
+    }
 
     setSucesso(true);
-    limparFormulario();
 
     setTimeout(() => {
       setSucesso(false);
@@ -103,7 +115,7 @@ function CadastroAlunoForm({ onSucesso }) {
     return (
       <div className="form-sucesso">
         <span className="form-sucesso-icone">✓</span>
-        <p>Aluno cadastrado com sucesso!</p>
+        <p>{editando ? "Aluno atualizado com sucesso!" : "Aluno cadastrado com sucesso!"}</p>
       </div>
     );
   }
@@ -178,7 +190,9 @@ function CadastroAlunoForm({ onSucesso }) {
         )}
       </div>
 
-      <button type="submit">Cadastrar Aluno</button>
+      <button type="submit">
+        {editando ? "Salvar Alterações" : "Cadastrar Aluno"}
+      </button>
     </form>
   );
 }

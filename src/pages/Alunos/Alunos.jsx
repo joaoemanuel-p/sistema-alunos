@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import "./Alunos.css";
 import Layout from "../../components/Layout/Layout";
+import Modal from "../../components/Modal/Modal";
+import CadastroAlunoForm from "../../components/CadastroAlunoForm/CadastroAlunoForm";
 import { useAluno } from "../../context/AlunoContext";
 import { buscarUsuarios } from "../../services/usuarioService";
 
 function Alunos() {
-  const { alunos, cursos } = useAluno();
+  const { alunos, cursos, removerAluno } = useAluno();
 
   const [usuariosApi, setUsuariosApi] = useState([]);
   const [carregandoApi, setCarregandoApi] = useState(true);
   const [erroApi, setErroApi] = useState(false);
+  const [alunoEditando, setAlunoEditando] = useState(null);
+  const [confirmandoExclusao, setConfirmandoExclusao] = useState(null);
 
   useEffect(() => {
     async function carregarUsuarios() {
@@ -38,6 +42,11 @@ function Alunos() {
 
     const [ano, mes, dia] = data.split("-");
     return `${dia}/${mes}/${ano}`;
+  }
+
+  function confirmarExclusao() {
+    removerAluno(confirmandoExclusao);
+    setConfirmandoExclusao(null);
   }
 
   return (
@@ -69,6 +78,22 @@ function Alunos() {
                   <strong>Nascimento:</strong>{" "}
                   {formatarData(aluno.dataNascimento)}
                 </p>
+
+                <div className="aluno-card-acoes">
+                  <button
+                    type="button"
+                    onClick={() => setAlunoEditando(aluno)}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    type="button"
+                    className="botao-excluir"
+                    onClick={() => setConfirmandoExclusao(aluno.id)}
+                  >
+                    Excluir
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -98,6 +123,35 @@ function Alunos() {
           </div>
         )}
       </section>
+
+      <Modal
+        aberto={Boolean(alunoEditando)}
+        onFechar={() => setAlunoEditando(null)}
+        titulo="Editar Aluno"
+      >
+        {alunoEditando && (
+          <CadastroAlunoForm
+            aluno={alunoEditando}
+            onSucesso={() => setAlunoEditando(null)}
+          />
+        )}
+      </Modal>
+
+      <Modal
+        aberto={Boolean(confirmandoExclusao)}
+        onFechar={() => setConfirmandoExclusao(null)}
+        titulo="Excluir Aluno"
+      >
+        <p>Tem certeza que deseja excluir este aluno?</p>
+        <div className="aluno-card-acoes">
+          <button type="button" onClick={() => setConfirmandoExclusao(null)}>
+            Cancelar
+          </button>
+          <button type="button" className="botao-excluir" onClick={confirmarExclusao}>
+            Confirmar
+          </button>
+        </div>
+      </Modal>
     </Layout>
   );
 }
