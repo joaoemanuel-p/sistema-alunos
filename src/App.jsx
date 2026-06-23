@@ -7,12 +7,27 @@ import Cursos from "./pages/Cursos/Cursos";
 import Login from "./pages/Login/Login";
 import Registro from "./pages/Registro/Registro";
 import RotaProtegida from "./components/RotaProtegida/RotaProtegida";
+import RotaPublica from "./components/RotaPublica/RotaPublica";
 
 function App() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/registro" element={<Registro />} />
+      <Route
+        path="/login"
+        element={
+          <RotaPublica>
+            <Login />
+          </RotaPublica>
+        }
+      />
+      <Route
+        path="/registro"
+        element={
+          <RotaPublica>
+            <Registro />
+          </RotaPublica>
+        }
+      />
 
       <Route
         path="/"
