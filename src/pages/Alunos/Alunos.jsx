@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./Alunos.css";
 import Layout from "../../components/Layout/Layout";
 import Modal from "../../components/Modal/Modal";
@@ -14,6 +14,8 @@ function Alunos() {
   const [erroApi, setErroApi] = useState(false);
   const [alunoEditando, setAlunoEditando] = useState(null);
   const [confirmandoExclusao, setConfirmandoExclusao] = useState(null);
+  const [busca, setBusca] = useState("");
+  const [filtroCurso, setFiltroCurso] = useState("");
 
   useEffect(() => {
     async function carregarUsuarios() {
@@ -49,16 +51,54 @@ function Alunos() {
     setConfirmandoExclusao(null);
   }
 
+  const alunosFiltrados = useMemo(() => {
+    const termo = busca.trim().toLowerCase();
+
+    return alunos.filter((aluno) => {
+      const combinaBusca =
+        !termo ||
+        aluno.nome.toLowerCase().includes(termo) ||
+        aluno.matricula.toLowerCase().includes(termo);
+
+      const combinaCurso = !filtroCurso || aluno.curso === filtroCurso;
+
+      return combinaBusca && combinaCurso;
+    });
+  }, [alunos, busca, filtroCurso]);
+
   return (
     <Layout>
       <h1>Alunos</h1>
 
+      <section className="alunos-filtros">
+        <input
+          type="text"
+          placeholder="Buscar por nome ou matrícula..."
+          value={busca}
+          onChange={(event) => setBusca(event.target.value)}
+        />
+
+        <select
+          value={filtroCurso}
+          onChange={(event) => setFiltroCurso(event.target.value)}
+        >
+          <option value="">Todos os cursos</option>
+          {cursos.map((curso) => (
+            <option key={curso.id} value={curso.id}>
+              {curso.nome}
+            </option>
+          ))}
+        </select>
+      </section>
+
       <section>
         {alunos.length === 0 ? (
           <p>Nenhum aluno cadastrado ainda.</p>
+        ) : alunosFiltrados.length === 0 ? (
+          <p>Nenhum aluno encontrado com esse filtro.</p>
         ) : (
           <div className="alunos-lista">
-            {alunos.map((aluno) => (
+            {alunosFiltrados.map((aluno) => (
               <div className="aluno-card" key={aluno.id}>
                 <h2>{aluno.nome}</h2>
 

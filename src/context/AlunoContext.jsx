@@ -18,7 +18,11 @@ export function AlunoProvider({ children }) {
   const [modalAberto, setModalAberto] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem(CHAVE_STORAGE, JSON.stringify(alunos));
+    try {
+      localStorage.setItem(CHAVE_STORAGE, JSON.stringify(alunos));
+    } catch (error) {
+      console.error("Não foi possível salvar os alunos no localStorage:", error);
+    }
   }, [alunos]);
 
   function adicionarAluno(dadosAluno) {

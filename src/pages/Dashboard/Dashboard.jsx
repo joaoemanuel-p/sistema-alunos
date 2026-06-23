@@ -15,17 +15,26 @@ function Dashboard() {
     ...dadosPorCurso.map((c) => c.totalAlunos)
   );
 
-  const cursoMaisPopular = dadosPorCurso.reduce((maior, atual) =>
-    atual.totalAlunos > maior.totalAlunos ? atual : maior
-  );
+  const cursoMaisPopular =
+    dadosPorCurso.length > 0
+      ? dadosPorCurso.reduce((maior, atual) =>
+          atual.totalAlunos > maior.totalAlunos ? atual : maior
+        )
+      : null;
 
-  const cursoMaiorDuracao = dadosPorCurso.reduce((maior, atual) =>
-    atual.duracaoAnos > maior.duracaoAnos ? atual : maior
-  );
+  const cursoMaiorDuracao =
+    dadosPorCurso.length > 0
+      ? dadosPorCurso.reduce((maior, atual) =>
+          atual.duracaoAnos > maior.duracaoAnos ? atual : maior
+        )
+      : null;
 
-  const cursoMenorDuracao = dadosPorCurso.reduce((menor, atual) =>
-    atual.duracaoAnos < menor.duracaoAnos ? atual : menor
-  );
+  const cursoMenorDuracao =
+    dadosPorCurso.length > 0
+      ? dadosPorCurso.reduce((menor, atual) =>
+          atual.duracaoAnos < menor.duracaoAnos ? atual : menor
+        )
+      : null;
 
   return (
     <Layout>
@@ -44,7 +53,7 @@ function Dashboard() {
 
         <div className="dashboard-stat-card">
           <span className="dashboard-stat-numero">
-            {cursoMaisPopular.totalAlunos > 0
+            {cursoMaisPopular && cursoMaisPopular.totalAlunos > 0
               ? cursoMaisPopular.nome
               : "Nenhum ainda"}
           </span>
@@ -52,19 +61,21 @@ function Dashboard() {
         </div>
       </section>
 
-      <section className="dashboard-destaques">
-        <div className="dashboard-destaque-card">
-          <h3>Maior duração</h3>
-          <p>{cursoMaiorDuracao.nome}</p>
-          <span>{cursoMaiorDuracao.duracaoAnos} anos</span>
-        </div>
+      {cursoMaiorDuracao && cursoMenorDuracao && (
+        <section className="dashboard-destaques">
+          <div className="dashboard-destaque-card">
+            <h3>Maior duração</h3>
+            <p>{cursoMaiorDuracao.nome}</p>
+            <span>{cursoMaiorDuracao.duracaoAnos} anos</span>
+          </div>
 
-        <div className="dashboard-destaque-card">
-          <h3>Menor duração</h3>
-          <p>{cursoMenorDuracao.nome}</p>
-          <span>{cursoMenorDuracao.duracaoAnos} anos</span>
-        </div>
-      </section>
+          <div className="dashboard-destaque-card">
+            <h3>Menor duração</h3>
+            <p>{cursoMenorDuracao.nome}</p>
+            <span>{cursoMenorDuracao.duracaoAnos} anos</span>
+          </div>
+        </section>
+      )}
 
       <section className="dashboard-grafico">
         <h2>Alunos por curso</h2>

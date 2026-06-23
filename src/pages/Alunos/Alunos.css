@@ -5,7 +5,7 @@
 .alunos-api-section h2 {
   margin-bottom: 16px;
   font-size: 1.1rem;
-}
+} 
 
 .aluno-card-acoes {
   display: flex;
@@ -38,4 +38,29 @@
 
 .botao-excluir:hover {
   background: var(--primary-dark) !important;
+}
+
+.alunos-filtros {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.alunos-filtros input,
+.alunos-filtros select {
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.alunos-filtros input {
+  flex: 1;
+  min-width: 220px;
+}
+
+.alunos-filtros select {
+  min-width: 180px;
 }
