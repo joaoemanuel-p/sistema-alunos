@@ -6,6 +6,13 @@ import CadastroAlunoForm from "../../components/CadastroAlunoForm/CadastroAlunoF
 import { useAluno } from "../../context/AlunoContext";
 import { buscarUsuarios } from "../../services/usuarioService";
 
+const LABELS_STATUS = {
+  ativo: "Ativo",
+  inativo: "Inativo",
+  trancado: "Trancado",
+  transferido: "Transferido",
+};
+
 function Alunos() {
   const { alunos, cursos, removerAluno } = useAluno();
 
@@ -16,6 +23,7 @@ function Alunos() {
   const [confirmandoExclusao, setConfirmandoExclusao] = useState(null);
   const [busca, setBusca] = useState("");
   const [filtroCurso, setFiltroCurso] = useState("");
+  const [filtroStatus, setFiltroStatus] = useState("");
 
   useEffect(() => {
     async function carregarUsuarios() {
@@ -62,9 +70,12 @@ function Alunos() {
 
       const combinaCurso = !filtroCurso || aluno.curso === filtroCurso;
 
-      return combinaBusca && combinaCurso;
+      const combinaStatus =
+        !filtroStatus || (aluno.status || "ativo") === filtroStatus;
+
+      return combinaBusca && combinaCurso && combinaStatus;
     });
-  }, [alunos, busca, filtroCurso]);
+  }, [alunos, busca, filtroCurso, filtroStatus]);
 
   return (
     <Layout>
@@ -89,6 +100,18 @@ function Alunos() {
             </option>
           ))}
         </select>
+
+        <select
+          value={filtroStatus}
+          onChange={(event) => setFiltroStatus(event.target.value)}
+        >
+          <option value="">Todos os status</option>
+          {Object.entries(LABELS_STATUS).map(([valor, label]) => (
+            <option key={valor} value={valor}>
+              {label}
+            </option>
+          ))}
+        </select>
       </section>
 
       <section>
@@ -98,44 +121,53 @@ function Alunos() {
           <p>Nenhum aluno encontrado com esse filtro.</p>
         ) : (
           <div className="alunos-lista">
-            {alunosFiltrados.map((aluno) => (
-              <div className="aluno-card" key={aluno.id}>
-                <h2>{aluno.nome}</h2>
+            {alunosFiltrados.map((aluno) => {
+              const statusAtual = aluno.status || "ativo";
 
-                <p>
-                  <strong>E-mail:</strong> {aluno.email}
-                </p>
+              return (
+                <div className="aluno-card" key={aluno.id}>
+                  <div className="aluno-card-cabecalho">
+                    <h2>{aluno.nome}</h2>
+                    <span className={`status-badge status-${statusAtual}`}>
+                      {LABELS_STATUS[statusAtual]}
+                    </span>
+                  </div>
 
-                <p>
-                  <strong>Matrícula:</strong> {aluno.matricula}
-                </p>
+                  <p>
+                    <strong>E-mail:</strong> {aluno.email}
+                  </p>
 
-                <p>
-                  <strong>Curso:</strong> {nomeDoCurso(aluno.curso)}
-                </p>
+                  <p>
+                    <strong>Matrícula:</strong> {aluno.matricula}
+                  </p>
 
-                <p>
-                  <strong>Nascimento:</strong>{" "}
-                  {formatarData(aluno.dataNascimento)}
-                </p>
+                  <p>
+                    <strong>Curso:</strong> {nomeDoCurso(aluno.curso)}
+                  </p>
 
-                <div className="aluno-card-acoes">
-                  <button
-                    type="button"
-                    onClick={() => setAlunoEditando(aluno)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    type="button"
-                    className="botao-excluir"
-                    onClick={() => setConfirmandoExclusao(aluno.id)}
-                  >
-                    Excluir
-                  </button>
+                  <p>
+                    <strong>Nascimento:</strong>{" "}
+                    {formatarData(aluno.dataNascimento)}
+                  </p>
+
+                  <div className="aluno-card-acoes">
+                    <button
+                      type="button"
+                      onClick={() => setAlunoEditando(aluno)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      type="button"
+                      className="botao-excluir"
+                      onClick={() => setConfirmandoExclusao(aluno.id)}
+                    >
+                      Excluir
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </section>

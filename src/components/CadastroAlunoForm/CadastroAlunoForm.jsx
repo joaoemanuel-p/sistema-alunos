@@ -2,6 +2,13 @@ import { useState } from "react";
 import { useAluno } from "../../context/AlunoContext";
 import "./CadastroAlunoForm.css";
 
+const OPCOES_STATUS = [
+  { valor: "ativo", label: "Ativo" },
+  { valor: "inativo", label: "Inativo" },
+  { valor: "trancado", label: "Trancado" },
+  { valor: "transferido", label: "Transferido" },
+];
+
 function CadastroAlunoForm({ aluno, onSucesso }) {
   const { cursos, alunos, adicionarAluno, editarAluno } = useAluno();
   const editando = Boolean(aluno);
@@ -13,6 +20,7 @@ function CadastroAlunoForm({ aluno, onSucesso }) {
   const [dataNascimento, setDataNascimento] = useState(
     aluno?.dataNascimento || ""
   );
+  const [status, setStatus] = useState(aluno?.status || "ativo");
   const [erros, setErros] = useState({});
   const [sucesso, setSucesso] = useState(false);
 
@@ -72,6 +80,7 @@ function CadastroAlunoForm({ aluno, onSucesso }) {
     setMatricula("");
     setCurso("");
     setDataNascimento("");
+    setStatus("ativo");
     setErros({});
   }
 
@@ -91,6 +100,7 @@ function CadastroAlunoForm({ aluno, onSucesso }) {
       matricula: matricula.trim(),
       curso,
       dataNascimento,
+      status,
     };
 
     if (editando) {
@@ -188,6 +198,21 @@ function CadastroAlunoForm({ aluno, onSucesso }) {
         {erros.dataNascimento && (
           <p className="erro">{erros.dataNascimento}</p>
         )}
+      </div>
+
+      <div className="campo">
+        <label htmlFor="status">Status da matrícula</label>
+        <select
+          id="status"
+          value={status}
+          onChange={(event) => setStatus(event.target.value)}
+        >
+          {OPCOES_STATUS.map((opcao) => (
+            <option key={opcao.valor} value={opcao.valor}>
+              {opcao.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       <button type="submit">

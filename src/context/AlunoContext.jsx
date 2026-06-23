@@ -1,10 +1,11 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { cursos } from "../data/cursos";
+import { useAuth } from "./AuthContext";
 
 const AlunoContext = createContext();
 const CHAVE_STORAGE = "alunos";
 
-function carregarAlunosSalvos() {
+function carregarTodosAlunos() {
   try {
     const dados = localStorage.getItem(CHAVE_STORAGE);
     return dados ? JSON.parse(dados) : [];
@@ -14,37 +15,52 @@ function carregarAlunosSalvos() {
 }
 
 export function AlunoProvider({ children }) {
-  const [alunos, setAlunos] = useState(carregarAlunosSalvos);
+  const { usuarioAtual } = useAuth();
+  const [todosAlunos, setTodosAlunos] = useState(carregarTodosAlunos);
   const [modalAberto, setModalAberto] = useState(false);
 
   useEffect(() => {
     try {
-      localStorage.setItem(CHAVE_STORAGE, JSON.stringify(alunos));
+      localStorage.setItem(CHAVE_STORAGE, JSON.stringify(todosAlunos));
     } catch (error) {
       console.error("Não foi possível salvar os alunos no localStorage:", error);
     }
-  }, [alunos]);
+  }, [todosAlunos]);
+
+  // Cada conta só vê os alunos que ela mesma cadastrou
+  const alunos = useMemo(() => {
+    if (!usuarioAtual) {
+      return [];
+    }
+    return todosAlunos.filter((aluno) => aluno.usuarioId === usuarioAtual.id);
+  }, [todosAlunos, usuarioAtual]);
 
   function adicionarAluno(dadosAluno) {
+    if (!usuarioAtual) {
+      return;
+    }
+
     const novoAluno = {
       id: Date.now(),
+      usuarioId: usuarioAtual.id,
+      status: "ativo",
       ...dadosAluno,
     };
 
-    setAlunos((alunosAnteriores) => [
+    setTodosAlunos((alunosAnteriores) => [
       ...alunosAnteriores,
       novoAluno,
     ]);
   }
 
   function removerAluno(id) {
-    setAlunos((alunosAnteriores) =>
+    setTodosAlunos((alunosAnteriores) =>
       alunosAnteriores.filter((aluno) => aluno.id !== id)
     );
   }
 
   function editarAluno(id, dadosAtualizados) {
-    setAlunos((alunosAnteriores) =>
+    setTodosAlunos((alunosAnteriores) =>
       alunosAnteriores.map((aluno) =>
         aluno.id === id ? { ...aluno, ...dadosAtualizados } : aluno
       )

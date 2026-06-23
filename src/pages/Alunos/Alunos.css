@@ -64,3 +64,40 @@
 .alunos-filtros select {
   min-width: 180px;
 }
+
+.aluno-card-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.status-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.status-ativo {
+  background: rgba(46, 160, 67, 0.15);
+  color: #1f7a34;
+}
+
+.status-inativo {
+  background: rgba(138, 125, 111, 0.18);
+  color: var(--text-muted);
+}
+
+.status-trancado {
+  background: rgba(194, 84, 45, 0.15);
+  color: var(--primary-dark);
+}
+
+.status-transferido {
+  background: rgba(45, 110, 194, 0.15);
+  color: #2d5ea0;
+}
