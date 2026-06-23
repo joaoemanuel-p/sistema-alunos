@@ -1,0 +1,88 @@
+.auth-pagina {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background);
+  padding: 20px;
+}
+
+.auth-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hover);
+  padding: 32px;
+  width: 100%;
+  max-width: 380px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-card h1 {
+  text-align: center;
+}
+
+.auth-subtitulo {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.auth-card .campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.auth-card label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.auth-card input {
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.auth-card button {
+  margin-top: 6px;
+  padding: 10px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.auth-card button:hover {
+  background: var(--primary-dark);
+}
+
+.auth-erro {
+  background: rgba(194, 84, 45, 0.1);
+  color: var(--primary-dark);
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+}
+
+.auth-rodape {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.auth-rodape a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}

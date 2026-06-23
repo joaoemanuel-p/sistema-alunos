@@ -1,9 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAluno } from "../../context/AlunoContext";
+import { useAuth } from "../../context/AuthContext";
 import "./Navbar.css";
 
 function Navbar() {
   const { abrirModal } = useAluno();
+  const { usuarioAtual, logout } = useAuth();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate("/login");
+  }
 
   return (
     <nav className="navbar">
@@ -14,13 +22,27 @@ function Navbar() {
         <Link to="/cursos">Cursos</Link>
       </div>
 
-      <button
-        type="button"
-        className="navbar-botao-novo-aluno"
-        onClick={abrirModal}
-      >
-        + Novo Aluno
-      </button>
+      <div className="navbar-acoes">
+        {usuarioAtual && (
+          <span className="navbar-usuario">Olá, {usuarioAtual.nome.split(" ")[0]}</span>
+        )}
+
+        <button
+          type="button"
+          className="navbar-botao-novo-aluno"
+          onClick={abrirModal}
+        >
+          + Novo Aluno
+        </button>
+
+        <button
+          type="button"
+          className="navbar-botao-sair"
+          onClick={handleLogout}
+        >
+          Sair
+        </button>
+      </div>
     </nav>
   );
 }
