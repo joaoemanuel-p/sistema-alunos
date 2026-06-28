@@ -1,0 +1,117 @@
+.turmas-filtro-curso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.turmas-filtro-curso label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.turmas-filtro-curso select {
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius);
+  font-family: inherit;
+  min-width: 260px;
+}
+
+.turmas-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  margin-bottom: 24px;
+}
+
+.turmas-form .campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.turmas-form label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.turmas-form input,
+.turmas-form select {
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius);
+  font-family: inherit;
+}
+
+.turmas-form button {
+  padding: 9px 18px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.turmas-form button:hover {
+  background: var(--primary-dark);
+}
+
+.turmas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.turma-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 22px;
+}
+
+.turma-card-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.turma-card-cabecalho h2 {
+  font-size: 1rem;
+  margin: 0 0 4px 0;
+}
+
+.turma-card-turno {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.turma-card-contagem {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 10px 0 0 0;
+}
+
+.turma-card-alunos {
+  list-style: none;
+  margin: 10px 0 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.88rem;
+}
+
+.turma-card-alunos li {
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.025);
+  border-radius: 6px;
+}

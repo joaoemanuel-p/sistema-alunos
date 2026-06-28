@@ -20,6 +20,7 @@ function Navbar() {
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/alunos">Alunos</Link>
         <Link to="/cursos">Cursos</Link>
+        <Link to="/turmas">Turmas</Link>
       </div>
 
       <div className="navbar-acoes">

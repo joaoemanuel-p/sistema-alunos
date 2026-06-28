@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Alunos from "./pages/Alunos/Alunos";
 import Cursos from "./pages/Cursos/Cursos";
+import Turmas from "./pages/Turmas/Turmas";
 import Login from "./pages/Login/Login";
 import Registro from "./pages/Registro/Registro";
 import RotaProtegida from "./components/RotaProtegida/RotaProtegida";
@@ -58,6 +59,14 @@ function App() {
         element={
           <RotaProtegida>
             <Cursos />
+          </RotaProtegida>
+        }
+      />
+      <Route
+        path="/turmas"
+        element={
+          <RotaProtegida>
+            <Turmas />
           </RotaProtegida>
         }
       />

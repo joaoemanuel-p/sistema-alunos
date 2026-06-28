@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAluno } from "../../context/AlunoContext";
+import { useTurma } from "../../context/TurmaContext";
 import "./CadastroAlunoForm.css";
 
 const OPCOES_STATUS = [
@@ -11,18 +12,22 @@ const OPCOES_STATUS = [
 
 function CadastroAlunoForm({ aluno, onSucesso }) {
   const { cursos, alunos, adicionarAluno, editarAluno } = useAluno();
+  const { turmasPorCurso } = useTurma();
   const editando = Boolean(aluno);
 
   const [nome, setNome] = useState(aluno?.nome || "");
   const [email, setEmail] = useState(aluno?.email || "");
   const [matricula, setMatricula] = useState(aluno?.matricula || "");
   const [curso, setCurso] = useState(aluno?.curso || "");
+  const [turmaId, setTurmaId] = useState(aluno?.turmaId || "");
   const [dataNascimento, setDataNascimento] = useState(
     aluno?.dataNascimento || ""
   );
   const [status, setStatus] = useState(aluno?.status || "ativo");
   const [erros, setErros] = useState({});
   const [sucesso, setSucesso] = useState(false);
+
+  const turmasDisponiveis = curso ? turmasPorCurso(curso) : [];
 
   function validarEmail(valor) {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -79,6 +84,7 @@ function CadastroAlunoForm({ aluno, onSucesso }) {
     setEmail("");
     setMatricula("");
     setCurso("");
+    setTurmaId("");
     setDataNascimento("");
     setStatus("ativo");
     setErros({});
@@ -99,6 +105,7 @@ function CadastroAlunoForm({ aluno, onSucesso }) {
       email: email.trim(),
       matricula: matricula.trim(),
       curso,
+      turmaId: turmaId || null,
       dataNascimento,
       status,
     };
@@ -119,6 +126,11 @@ function CadastroAlunoForm({ aluno, onSucesso }) {
         onSucesso();
       }
     }, 1200);
+  }
+
+  function handleMudarCurso(novoCursoId) {
+    setCurso(novoCursoId);
+    setTurmaId("");
   }
 
   if (sucesso) {
@@ -173,7 +185,7 @@ function CadastroAlunoForm({ aluno, onSucesso }) {
         <select
           id="curso"
           value={curso}
-          onChange={(event) => setCurso(event.target.value)}
+          onChange={(event) => handleMudarCurso(event.target.value)}
           className={erros.curso ? "campo-invalido" : ""}
         >
           <option value="">Selecione um curso</option>
@@ -184,6 +196,27 @@ function CadastroAlunoForm({ aluno, onSucesso }) {
           ))}
         </select>
         {erros.curso && <p className="erro">{erros.curso}</p>}
+      </div>
+
+      <div className="campo">
+        <label htmlFor="turma">Turma</label>
+        <select
+          id="turma"
+          value={turmaId}
+          onChange={(event) =>
+            setTurmaId(event.target.value ? Number(event.target.value) : "")
+          }
+          disabled={!curso}
+        >
+          <option value="">
+            {curso ? "Sem turma" : "Selecione um curso primeiro"}
+          </option>
+          {turmasDisponiveis.map((turma) => (
+            <option key={turma.id} value={turma.id}>
+              {turma.nome} ({turma.turno})
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="campo">

@@ -1,6 +1,14 @@
 import "./AccordionCurso.css";
+import { useTurma } from "../../context/TurmaContext";
 
 function AccordionCurso({ curso, alunosDoCurso, aberto, onToggle }) {
+  const { turmas } = useTurma();
+
+  function nomeDaTurma(turmaId) {
+    const turma = turmas.find((t) => t.id === turmaId);
+    return turma ? `${turma.nome} (${turma.turno})` : "Sem turma";
+  }
+
   return (
     <div className="accordion-item">
       <button
@@ -48,6 +56,8 @@ function AccordionCurso({ curso, alunosDoCurso, aberto, onToggle }) {
               {alunosDoCurso.map((aluno) => (
                 <li key={aluno.id}>
                   <strong>{aluno.nome}</strong> — Matrícula: {aluno.matricula}
+                  {" — "}
+                  {nomeDaTurma(aluno.turmaId)}
                 </li>
               ))}
             </ul>
