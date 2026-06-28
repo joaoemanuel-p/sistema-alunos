@@ -54,6 +54,14 @@ export function TurmaProvider({ children }) {
     );
   }
 
+  function editarTurma(id, dadosAtualizados) {
+    setTodasTurmas((turmasAnteriores) =>
+      turmasAnteriores.map((turma) =>
+        turma.id === id ? { ...turma, ...dadosAtualizados } : turma
+      )
+    );
+  }
+
   function turmasPorCurso(cursoId) {
     return turmas.filter((turma) => turma.cursoId === cursoId);
   }
@@ -64,6 +72,7 @@ export function TurmaProvider({ children }) {
         turmas,
         criarTurma,
         removerTurma,
+        editarTurma,
         turmasPorCurso,
       }}
     >

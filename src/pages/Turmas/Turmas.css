@@ -6,8 +6,9 @@
 }
 
 .turmas-filtro-curso label {
+  font-size: 0.88rem;
   font-weight: 600;
-  font-size: 0.9rem;
+  color: var(--text-muted);
 }
 
 .turmas-filtro-curso select {
@@ -37,8 +38,9 @@
 }
 
 .turmas-form label {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 600;
+  color: var(--text-muted);
 }
 
 .turmas-form input,
@@ -82,6 +84,64 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
+}
+
+.turma-card-acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.turma-card-acoes button {
+  padding: 7px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.turma-card-acoes button:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.turma-card-acoes .botao-excluir {
+  border-color: var(--primary-dark);
+  background: var(--primary);
+  color: #fff;
+}
+
+.turma-card-acoes .botao-excluir:hover {
+  background: var(--primary-dark);
+}
+
+.turma-card-edicao {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.turma-card-edicao .campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.turma-card-edicao label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.turma-card-edicao input,
+.turma-card-edicao select {
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius);
+  font-family: inherit;
 }
 
 .turma-card-cabecalho h2 {

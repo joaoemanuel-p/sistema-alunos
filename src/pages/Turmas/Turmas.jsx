@@ -8,12 +8,16 @@ const TURNOS = ["Manhã", "Tarde", "Noite"];
 
 function Turmas() {
   const { cursos, alunos } = useAluno();
-  const { turmas, criarTurma, removerTurma, turmasPorCurso } = useTurma();
+  const { turmas, criarTurma, removerTurma, editarTurma, turmasPorCurso } = useTurma();
 
   const [cursoSelecionado, setCursoSelecionado] = useState(cursos[0]?.id || "");
   const [nomeTurma, setNomeTurma] = useState("");
   const [turno, setTurno] = useState(TURNOS[0]);
   const [erro, setErro] = useState("");
+
+  const [turmaEditandoId, setTurmaEditandoId] = useState(null);
+  const [nomeEdicao, setNomeEdicao] = useState("");
+  const [turnoEdicao, setTurnoEdicao] = useState(TURNOS[0]);
 
   const turmasDoCurso = turmasPorCurso(cursoSelecionado);
 
@@ -37,6 +41,31 @@ function Turmas() {
     });
 
     setNomeTurma("");
+  }
+
+  function iniciarEdicao(turma) {
+    setTurmaEditandoId(turma.id);
+    setNomeEdicao(turma.nome);
+    setTurnoEdicao(turma.turno);
+  }
+
+  function cancelarEdicao() {
+    setTurmaEditandoId(null);
+  }
+
+  function salvarEdicao(event) {
+    event.preventDefault();
+
+    if (!nomeEdicao.trim()) {
+      return;
+    }
+
+    editarTurma(turmaEditandoId, {
+      nome: nomeEdicao.trim(),
+      turno: turnoEdicao,
+    });
+
+    setTurmaEditandoId(null);
   }
 
   return (
@@ -94,36 +123,84 @@ function Turmas() {
         {turmasDoCurso.length === 0 ? (
           <p>Nenhuma turma cadastrada para este curso ainda.</p>
         ) : (
-          turmasDoCurso.map((turma) => (
-            <div className="turma-card" key={turma.id}>
-              <div className="turma-card-cabecalho">
-                <div>
-                  <h2>{turma.nome}</h2>
-                  <span className="turma-card-turno">{turma.turno}</span>
-                </div>
+          turmasDoCurso.map((turma) => {
+            const editando = turmaEditandoId === turma.id;
 
-                <button
-                  type="button"
-                  className="botao-excluir"
-                  onClick={() => removerTurma(turma.id)}
-                >
-                  Excluir
-                </button>
+            return (
+              <div className="turma-card" key={turma.id}>
+                {editando ? (
+                  <form className="turma-card-edicao" onSubmit={salvarEdicao}>
+                    <div className="campo">
+                      <label htmlFor={`nome-${turma.id}`}>Nome</label>
+                      <input
+                        id={`nome-${turma.id}`}
+                        type="text"
+                        value={nomeEdicao}
+                        onChange={(event) => setNomeEdicao(event.target.value)}
+                        autoFocus
+                      />
+                    </div>
+
+                    <div className="campo">
+                      <label htmlFor={`turno-${turma.id}`}>Turno</label>
+                      <select
+                        id={`turno-${turma.id}`}
+                        value={turnoEdicao}
+                        onChange={(event) => setTurnoEdicao(event.target.value)}
+                      >
+                        {TURNOS.map((opcao) => (
+                          <option key={opcao} value={opcao}>
+                            {opcao}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="turma-card-acoes">
+                      <button type="submit">Salvar</button>
+                      <button type="button" onClick={cancelarEdicao}>
+                        Cancelar
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <>
+                    <div className="turma-card-cabecalho">
+                      <div>
+                        <h2>{turma.nome}</h2>
+                        <span className="turma-card-turno">{turma.turno}</span>
+                      </div>
+
+                      <div className="turma-card-acoes">
+                        <button type="button" onClick={() => iniciarEdicao(turma)}>
+                          Editar
+                        </button>
+                        <button
+                          type="button"
+                          className="botao-excluir"
+                          onClick={() => removerTurma(turma.id)}
+                        >
+                          Excluir
+                        </button>
+                      </div>
+                    </div>
+
+                    <p className="turma-card-contagem">
+                      {alunosDaTurma(turma.id).length} aluno(s) nessa turma
+                    </p>
+
+                    {alunosDaTurma(turma.id).length > 0 && (
+                      <ul className="turma-card-alunos">
+                        {alunosDaTurma(turma.id).map((aluno) => (
+                          <li key={aluno.id}>{aluno.nome}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </>
+                )}
               </div>
-
-              <p className="turma-card-contagem">
-                {alunosDaTurma(turma.id).length} aluno(s) nessa turma
-              </p>
-
-              {alunosDaTurma(turma.id).length > 0 && (
-                <ul className="turma-card-alunos">
-                  {alunosDaTurma(turma.id).map((aluno) => (
-                    <li key={aluno.id}>{aluno.nome}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          ))
+            );
+          })
         )}
       </section>
     </Layout>
